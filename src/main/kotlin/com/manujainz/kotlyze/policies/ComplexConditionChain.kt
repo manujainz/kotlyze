@@ -12,7 +12,7 @@ import com.manujainz.kotlyze.visitors.complexity.ConditionChainVisitor
 private const val DEFAULT_MAX_CONDITION = 0
 private const val KEY_MAX_CONDITION = "maxAllowedConditionChain"
 
-class LargeConditionChain(
+class ComplexConditionChain(
     configLoader: ConfigLoader,
     private val reportEngine: ReportEngine
 ): Policy(configLoader) {
