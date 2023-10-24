@@ -1,13 +1,13 @@
-package com.manujainz.kotlyze.policies
+package com.manujainz.kotlyze.policies.complexity
 
 import com.manujainz.kotlyze.config.ConfigLoader
 import com.manujainz.kotlyze.config.PolicyConfigDelegate
-import org.jetbrains.kotlin.psi.KtFile
 import com.manujainz.kotlyze.policies.base.Policy
 import com.manujainz.kotlyze.reporting.core.ReportEngine
 import com.manujainz.kotlyze.reporting.model.IssueType
-import com.manujainz.kotlyze.reporting.model.PolicyViolationModel
-import com.manujainz.kotlyze.visitors.complexity.ConditionChainVisitor
+import com.manujainz.kotlyze.reporting.model.PolicyViolation
+import com.manujainz.kotlyze.visitors.ConditionChainVisitor
+import org.jetbrains.kotlin.psi.KtFile
 
 private const val DEFAULT_MAX_CONDITION = 0
 private const val KEY_MAX_CONDITION = "maxAllowedConditionChain"
@@ -33,7 +33,7 @@ class ComplexConditionChain(
             it.accept(visitor)
             val issues = visitor.detectedIssues
             issues.forEach { issue ->
-                reportEngine.report(PolicyViolationModel(issue, issueType, policyId))
+                reportEngine.report(PolicyViolation(issue, issueType, policyId))
             }
         }
     }

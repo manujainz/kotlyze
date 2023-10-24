@@ -1,4 +1,4 @@
-package com.manujainz.kotlyze.visitors.codesmell
+package com.manujainz.kotlyze.visitors
 
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFunction

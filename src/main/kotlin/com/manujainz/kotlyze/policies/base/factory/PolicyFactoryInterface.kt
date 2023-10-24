@@ -1,4 +1,4 @@
-package com.manujainz.kotlyze.policies.factory
+package com.manujainz.kotlyze.policies.base.factory
 
 import com.manujainz.kotlyze.policies.base.Policy
 import com.manujainz.kotlyze.reporting.model.IssueType

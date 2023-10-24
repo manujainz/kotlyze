@@ -3,7 +3,7 @@ package com.manujainz.kotlyze.plugin.init
 import com.manujainz.kotlyze.config.JsonConfigLoader
 import com.manujainz.kotlyze.parser.KotlyzeParser
 import com.manujainz.kotlyze.plugin.KotlyzeExtension
-import com.manujainz.kotlyze.policies.factory.PolicyFactory
+import com.manujainz.kotlyze.policies.base.factory.PolicyFactory
 import com.manujainz.kotlyze.reporting.core.ReportEngineImpl
 import com.manujainz.kotlyze.reporting.publishers.SystemLogReportPublisher
 import org.gradle.api.Project
@@ -41,6 +41,7 @@ class KotlyzeStartup {
 
         // check kotlin files for policy violation
         policies.forEach {
+            println("policy: $it")
             it.check(ktFiles)
         }
 

@@ -1,4 +1,4 @@
-package visitors.codesmell
+package com.manujainz.kotlyze.visitors
 
 import org.jetbrains.kotlin.psi.KtFile
 import com.manujainz.kotlyze.reporting.model.Issue

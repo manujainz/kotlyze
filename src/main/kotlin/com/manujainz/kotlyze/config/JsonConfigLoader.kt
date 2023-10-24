@@ -14,16 +14,22 @@ class JsonConfigLoader(jsonConfig: String): ConfigLoader {
     }
 
     private fun parse(jsonConfig: String): Map<String, PolicyConfig> {
-        val jsonObject = JSONObject(jsonConfig)
+        try {
+            val jsonObject = JSONObject(jsonConfig)
 
-        return jsonObject.keys().asSequence().associateWith {
-            val policyObject = jsonObject.getJSONObject(it)
-            PolicyConfig(
-                policyObject.getBoolean(KEY_ENABLED),
-                policyObject.keySet()
-                    .filter { key -> key != KEY_ENABLED }
-                    .associateWith { key -> policyObject.get(key) }
-            )
+            return jsonObject.keys().asSequence().associateWith {
+                val policyObject = jsonObject.getJSONObject(it)
+                PolicyConfig(
+                    policyObject.getBoolean(KEY_ENABLED),
+                    policyObject.keySet()
+                        .filter { key -> key != KEY_ENABLED }
+                        .associateWith { key -> policyObject.get(key) }
+                )
+            }
+        } catch (e: Exception) {
+            println("Exception when parsing json config")
+            e.printStackTrace()
+            return emptyMap()
         }
     }
 

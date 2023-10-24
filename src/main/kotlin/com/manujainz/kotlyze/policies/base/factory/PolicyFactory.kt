@@ -1,4 +1,4 @@
-package com.manujainz.kotlyze.policies.factory
+package com.manujainz.kotlyze.policies.base.factory
 
 import com.manujainz.kotlyze.config.ConfigLoader
 import com.manujainz.kotlyze.policies.base.Policy
@@ -21,7 +21,7 @@ class PolicyFactory(
 
     override fun getPolicies(type: IssueType): List<Policy> {
         return repository.policies.filter {
-            config.isPolicyEnabled(it.policyId) && it.issueType == type
+           config.isPolicyEnabled(it.policyId) && it.issueType == type
         }
     }
 
