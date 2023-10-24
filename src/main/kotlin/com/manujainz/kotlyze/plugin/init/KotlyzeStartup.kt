@@ -41,7 +41,6 @@ class KotlyzeStartup {
 
         // check kotlin files for policy violation
         policies.forEach {
-            println("policy: $it")
             it.check(ktFiles)
         }
 
@@ -73,8 +72,5 @@ class KotlyzeStartup {
         val root = File(directoryPath)
         return root.walkTopDown().filter { it.extension == "kt" }.toList()
     }
-
-
-
 
 }
