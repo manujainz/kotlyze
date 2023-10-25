@@ -4,6 +4,7 @@ import com.manujainz.kotlyze.config.model.PolicyConfig
 import org.json.JSONObject
 
 private const val KEY_ENABLED = "enabled"
+private const val KEY_POLICIES = "policies"
 
 class JsonConfigLoader(jsonConfig: String): ConfigLoader {
 
@@ -13,12 +14,19 @@ class JsonConfigLoader(jsonConfig: String): ConfigLoader {
         configs = parse(jsonConfig)
     }
 
+    fun printConfig() {
+        configs.forEach {
+            println(it.key + "=" + it.value)
+        }
+    }
+
     private fun parse(jsonConfig: String): Map<String, PolicyConfig> {
         try {
-            val jsonObject = JSONObject(jsonConfig)
+            val rootObject = JSONObject(jsonConfig)
+            val policiesObject = rootObject.getJSONObject(KEY_POLICIES)
 
-            return jsonObject.keys().asSequence().associateWith {
-                val policyObject = jsonObject.getJSONObject(it)
+            return policiesObject.keys().asSequence().associateWith {
+                val policyObject = policiesObject.getJSONObject(it)
                 PolicyConfig(
                     policyObject.getBoolean(KEY_ENABLED),
                     policyObject.keySet()

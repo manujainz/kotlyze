@@ -3,17 +3,17 @@ package com.manujainz.kotlyze.policies.perf
 import com.manujainz.kotlyze.config.ConfigLoader
 import com.manujainz.kotlyze.reporting.core.ReportEngine
 import com.manujainz.kotlyze.reporting.model.IssueType
-import com.manujainz.kotlyze.reporting.model.PolicyViolation
 import com.manujainz.kotlyze.visitors.CoroutineGlobalScopeUsageVisitor
 import org.jetbrains.kotlin.psi.KtFile
 import com.manujainz.kotlyze.policies.base.Policy
+import com.manujainz.kotlyze.policies.base.visitFilesAndReport
 
 class CoroutineGlobalScopeUsage(
     configLoader: ConfigLoader,
     private val reportEngine: ReportEngine
 ): Policy(configLoader) {
 
-    override val policyId: String = this::class.java.canonicalName
+    override val policyId: String = this::class.java.simpleName
 
     override val issueType = IssueType.PERFORMANCE
 
@@ -26,12 +26,6 @@ class CoroutineGlobalScopeUsage(
 
     override fun check(ktFiles: List<KtFile>) {
         val visitor = CoroutineGlobalScopeUsageVisitor()
-        ktFiles.forEach {
-            it.accept(visitor)
-            val issues = visitor.detectedIssues
-            issues.forEach { issue ->
-                reportEngine.report(PolicyViolation(issue, issueType, policyId))
-            }
-        }
+        visitFilesAndReport(ktFiles, visitor, reportEngine)
     }
 }

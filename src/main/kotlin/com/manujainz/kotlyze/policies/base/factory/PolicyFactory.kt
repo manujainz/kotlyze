@@ -12,7 +12,6 @@ class PolicyFactory(
 
     private val repository = PolicyRepository(config, reportEngine)
 
-
     override fun getAllPolicies(): List<Policy> {
         return repository.policies.filter {
             config.isPolicyEnabled(it.policyId)

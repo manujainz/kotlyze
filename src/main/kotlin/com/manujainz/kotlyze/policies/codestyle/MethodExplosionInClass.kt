@@ -6,13 +6,16 @@ import com.manujainz.kotlyze.policies.base.Policy
 import com.manujainz.kotlyze.policies.base.visitFilesAndReport
 import com.manujainz.kotlyze.reporting.core.ReportEngine
 import com.manujainz.kotlyze.reporting.model.IssueType
-import com.manujainz.kotlyze.visitors.MaxCharactersPerLineVisitor
+import com.manujainz.kotlyze.visitors.ClassMethodVisitor
 import org.jetbrains.kotlin.psi.KtFile
 
-private const val DEFAULT_MAX_CHAR_PER_LINE = 120
-private const val KEY_MAX_ALLOWED_CHAR_PER_LINE = "maxAllowedCharPerLine"
+private const val DEFAULT_MAX_METHOD_PER_CLASS = 10
+private const val KEY_MAX_METHOD_PER_CLASS = "maxMethodsAllowedPerClass"
 
-class MaxCharacterPerLine(
+private const val DEFAULT_MAX_METHOD_PARAMS = 6
+private const val KEY_MAX_METHOD_PARAMS = "maxMethodParamsAllowed"
+
+class MethodExplosionInClass(
     configLoader: ConfigLoader,
     private val reportEngine: ReportEngine
 ): Policy(configLoader) {
@@ -21,18 +24,24 @@ class MaxCharacterPerLine(
 
     override val issueType = IssueType.CODE_STYLE
 
-    override val description = "There should be a threshold on the number of characters per line."
+    override val description = "There should be a threshold on the number of methods and params in a class"
 
     override val config = configLoader.getConfigForPolicy(policyId) ?: getDefaultPolicyConfig()
 
-    private val maxAllowedCharPerLine by PolicyConfigDelegate(
+    private val maxMethodsAllowedPerClass by PolicyConfigDelegate(
         this,
-        KEY_MAX_ALLOWED_CHAR_PER_LINE,
-        DEFAULT_MAX_CHAR_PER_LINE
+        KEY_MAX_METHOD_PER_CLASS,
+        DEFAULT_MAX_METHOD_PER_CLASS
+    )
+
+    private val maxMethodParamsAllowed by PolicyConfigDelegate(
+        this,
+        KEY_MAX_METHOD_PARAMS,
+        DEFAULT_MAX_METHOD_PARAMS
     )
 
     override fun check(ktFiles: List<KtFile>) {
-        val visitor = MaxCharactersPerLineVisitor(maxAllowedCharPerLine)
+        val visitor = ClassMethodVisitor(maxMethodsAllowedPerClass, maxMethodParamsAllowed)
         visitFilesAndReport(ktFiles, visitor, reportEngine)
     }
 

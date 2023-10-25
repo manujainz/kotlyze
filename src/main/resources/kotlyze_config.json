@@ -1,0 +1,20 @@
+{
+  "policies": {
+    "MaxCharacterPerLine": {
+      "enabled": true,
+      "maxAllowedCharPerLine": 10
+    },
+    "ComplexConditionChain": {
+      "enabled": true,
+      "maxAllowedConditionChain": 5
+    },
+    "CoroutineGlobalScopeUsage": {
+      "enabled": true
+    },
+    "MethodExplosionInClass": {
+      "enabled": true,
+      "maxMethodsAllowedPerClass": 12,
+      "maxMethodParamsAllowed": 8
+    }
+  }
+}

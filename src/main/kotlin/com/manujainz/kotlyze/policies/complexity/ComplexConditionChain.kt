@@ -3,9 +3,9 @@ package com.manujainz.kotlyze.policies.complexity
 import com.manujainz.kotlyze.config.ConfigLoader
 import com.manujainz.kotlyze.config.PolicyConfigDelegate
 import com.manujainz.kotlyze.policies.base.Policy
+import com.manujainz.kotlyze.policies.base.visitFilesAndReport
 import com.manujainz.kotlyze.reporting.core.ReportEngine
 import com.manujainz.kotlyze.reporting.model.IssueType
-import com.manujainz.kotlyze.reporting.model.PolicyViolation
 import com.manujainz.kotlyze.visitors.ConditionChainVisitor
 import org.jetbrains.kotlin.psi.KtFile
 
@@ -17,7 +17,7 @@ class ComplexConditionChain(
     private val reportEngine: ReportEngine
 ): Policy(configLoader) {
 
-    override val policyId: String = this::class.java.canonicalName
+    override val policyId: String = this::class.java.simpleName
 
     override val issueType = IssueType.COMPLEXITY
 
@@ -29,13 +29,7 @@ class ComplexConditionChain(
 
     override fun check(ktFiles: List<KtFile>) {
         val visitor = ConditionChainVisitor(maxAllowedConditions)
-        ktFiles.forEach {
-            it.accept(visitor)
-            val issues = visitor.detectedIssues
-            issues.forEach { issue ->
-                reportEngine.report(PolicyViolation(issue, issueType, policyId))
-            }
-        }
+        visitFilesAndReport(ktFiles, visitor, reportEngine)
     }
 
 }
