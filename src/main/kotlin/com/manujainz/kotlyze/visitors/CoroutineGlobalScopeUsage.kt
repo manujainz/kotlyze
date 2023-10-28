@@ -15,13 +15,10 @@ class CoroutineGlobalScopeUsageVisitor : KotlyzeVisitor() {
         if (receiver.text == "GlobalScope" && selector is KtCallExpression) {
             val calledFunctionName = selector.calleeExpression?.text
             if (calledFunctionName in setOf("launch", "async")) {
-                Issue(
-                    fileName,
+                recordIssue(
                     getLineNumber(expression),
                     "Usage of $calledFunctionName in GlobalScope detected. Avoid using GlobalScope directly."
-                ).also {
-                    detectedIssues.add(it)
-                }
+                )
             }
         }
     }
