@@ -3,6 +3,7 @@ package com.manujainz.kotlyze.policies.base
 import com.manujainz.kotlyze.config.ConfigLoader
 import com.manujainz.kotlyze.config.model.PolicyConfig
 import com.manujainz.kotlyze.reporting.core.ReportEngine
+import com.manujainz.kotlyze.reporting.model.Issue
 import org.jetbrains.kotlin.psi.KtFile
 import com.manujainz.kotlyze.reporting.model.IssueType
 import com.manujainz.kotlyze.reporting.model.PolicyViolation

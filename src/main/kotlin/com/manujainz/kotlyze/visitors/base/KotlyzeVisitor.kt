@@ -11,7 +11,7 @@ abstract class KotlyzeVisitor: KtTreeVisitorVoid() {
 
     val detectedIssues = mutableListOf<Issue>()
 
-    var policyViolationListener: PolicyViolationListener? = null
+    var policyViolationListener: KotlyzeVisitationListener? = null
 
     protected lateinit var fileName: String
 
