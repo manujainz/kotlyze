@@ -1,6 +1,5 @@
 package com.manujainz.kotlyze.visitors
 
-import com.manujainz.kotlyze.reporting.model.Issue
 import org.jetbrains.kotlin.psi.KtClass
 import org.jetbrains.kotlin.psi.KtFunction
 import org.jetbrains.kotlin.psi.allConstructors
@@ -21,12 +20,11 @@ class ClassMethodVisitor(
     private fun checkConstructorParams(klass: KtClass) {
         klass.allConstructors.forEach {
             if (it.typeParameters.size > maxConstructorParamsPerMethod) {
-                recordIssue(Issue(
-                    fileName,
+                recordIssue(
                     -1,
                     "Class ${klass.name} constructor ${it.name} exceeds " +
                             "the max limit of $maxConstructorParamsPerMethod constructors."
-                ))
+                )
             }
         }
     }
@@ -36,11 +34,10 @@ class ClassMethodVisitor(
         klass.declarations.forEach {
             if (it is KtFunction) {
                 if (++methodCount > maxMethodCountPerClass) {
-                    recordIssue(Issue(
-                        fileName,
+                    recordIssue(
                         -1,
                         "Class ${klass.name} exceeds the max limit of $maxMethodCountPerClass methods."
-                    ))
+                    )
                     return
                 }
             }

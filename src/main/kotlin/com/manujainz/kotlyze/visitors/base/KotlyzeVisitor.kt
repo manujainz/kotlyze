@@ -28,7 +28,7 @@ abstract class KotlyzeVisitor: KtTreeVisitorVoid() {
         return (fileDoc?.getLineNumber(element.textOffset)?.plus(1)) ?: -1
     }
 
-    protected fun recordIssue(issue: Issue) {
-        detectedIssues.add(issue)
+    protected fun recordIssue(lineNo: Int, msg: String) {
+        detectedIssues.add(Issue(fileName, lineNo, msg))
     }
 }

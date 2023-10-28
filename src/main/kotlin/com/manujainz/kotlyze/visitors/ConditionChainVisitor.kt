@@ -2,7 +2,6 @@ package com.manujainz.kotlyze.visitors
 
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.*
-import com.manujainz.kotlyze.reporting.model.Issue
 import com.manujainz.kotlyze.visitors.base.KotlyzeVisitor
 
 class ConditionChainVisitor(private val allowedConditionsPerChain: Int): KotlyzeVisitor() {
@@ -11,13 +10,7 @@ class ConditionChainVisitor(private val allowedConditionsPerChain: Int): Kotlyze
         super.visitIfExpression(expression)
         val conditionCount = getConditionCount(expression.condition)
         if (conditionCount > allowedConditionsPerChain) {
-            Issue(
-                fileName,
-                getLineNumber(expression),
-                "If condition chain exceeding threshold of $allowedConditionsPerChain"
-            ).also {
-                detectedIssues.add(it)
-            }
+            recordIssue(getLineNumber(expression), "If condition chain exceeding threshold of $allowedConditionsPerChain")
         }
     }
 
@@ -25,13 +18,7 @@ class ConditionChainVisitor(private val allowedConditionsPerChain: Int): Kotlyze
         super.visitWhileExpression(expression)
         val conditionCount = getConditionCount(expression.condition)
         if (conditionCount > allowedConditionsPerChain) {
-            Issue(
-                fileName,
-                getLineNumber(expression),
-                "While condition chain exceeding threshold of $allowedConditionsPerChain"
-            ).also {
-                detectedIssues.add(it)
-            }
+            recordIssue(getLineNumber(expression),"While condition chain exceeding threshold of $allowedConditionsPerChain")
         }
     }
 
@@ -39,13 +26,7 @@ class ConditionChainVisitor(private val allowedConditionsPerChain: Int): Kotlyze
         super.visitDoWhileExpression(expression)
         val conditionCount = getConditionCount(expression.condition)
         if (conditionCount > allowedConditionsPerChain) {
-            Issue(
-                fileName,
-                getLineNumber(expression),
-                "Do while condition chain exceeding threshold of $allowedConditionsPerChain"
-            ).also {
-                detectedIssues.add(it)
-            }
+            recordIssue(getLineNumber(expression),"Do-While condition chain exceeding threshold of $allowedConditionsPerChain")
         }
     }
 
@@ -65,6 +46,4 @@ class ConditionChainVisitor(private val allowedConditionsPerChain: Int): Kotlyze
             else -> 0
         }
     }
-
-
 }
