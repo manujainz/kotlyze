@@ -1,8 +1,9 @@
 package com.manujainz.kotlyze.visitors
 
 import org.jetbrains.kotlin.psi.*
-import com.manujainz.kotlyze.reporting.model.Issue
 import com.manujainz.kotlyze.visitors.base.KotlyzeVisitor
+
+private const val SCOPE_GLOBAL = "GlobalScope"
 
 class CoroutineGlobalScopeUsageVisitor : KotlyzeVisitor() {
 
@@ -12,7 +13,7 @@ class CoroutineGlobalScopeUsageVisitor : KotlyzeVisitor() {
         val receiver = expression.receiverExpression
         val selector = expression.selectorExpression
 
-        if (receiver.text == "GlobalScope" && selector is KtCallExpression) {
+        if (receiver.text == SCOPE_GLOBAL && selector is KtCallExpression) {
             val calledFunctionName = selector.calleeExpression?.text
             if (calledFunctionName in setOf("launch", "async")) {
                 recordIssue(
