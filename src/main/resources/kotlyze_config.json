@@ -1,20 +1,75 @@
 {
   "policies": {
+    "MagicNumbersPolicy": {
+      "enabled": true,
+      "comment": "Detect and flag use of magic numbers."
+    },
     "MaxCharacterPerLine": {
       "enabled": true,
-      "maxAllowedCharPerLine": 10
-    },
-    "ComplexConditionChain": {
-      "enabled": true,
-      "maxAllowedConditionChain": 5
-    },
-    "CoroutineGlobalScopeUsage": {
-      "enabled": true
+      "maxAllowedCharPerLine": 120,
+      "comment": "Enforce a maximum character limit per line."
     },
     "MethodExplosionInClass": {
       "enabled": true,
       "maxMethodsAllowedPerClass": 12,
-      "maxMethodParamsAllowed": 8
+      "maxMethodParamsAllowed": 6,
+      "comment": "Limit the number of methods and parameters in a class."
+    },
+    "MultipleClassesPerFile": {
+      "enabled": true,
+      "comment": "Avoid having multiple top-level classes or objects in a single file."
+    },
+    "TrailingWhitespace": {
+      "enabled": true,
+      "comment": "Prevent lines from ending with whitespace."
+    },
+    "UnusedImportsPolicy": {
+      "enabled": true,
+      "comment": "Flag unused import statements."
+    },
+    "ComplexConditionChain": {
+      "enabled": true,
+      "maxAllowedConditionChain": 5,
+      "comment": "Limit the length of condition chains in if statements."
+    },
+    "ExcessiveReturnStatements": {
+      "enabled": true,
+      "maxAllowedReturns": 2,
+      "comment": "Limit the number of return statements in a method."
+    },
+    "HighCyclomaticComplexity": {
+      "enabled": true,
+      "maxAllowedComplexityPath": 5,
+      "comment": "Detect methods with high cyclomatic complexity."
+    },
+    "NestedDepth": {
+      "enabled": true,
+      "maxAllowedNestedDepth": 4,
+      "comment": "Limit the nesting depth of control structures."
+    },
+    "RecursiveFunctionUsage": {
+      "enabled": true,
+      "comment": "Detect deep or unbounded recursive methods."
+    },
+    "BlockingCallInCoroutine": {
+      "enabled": true,
+      "comment": "Detect blocking calls inside coroutines."
+    },
+    "CoroutineGlobalScopeUsage": {
+      "enabled": true,
+      "comment": "Detect usage of GlobalScope in coroutines."
+    },
+    "InefficientCollectionOperation": {
+      "enabled": true,
+      "comment": "Detect inefficient collection operations."
+    },
+    "InefficientOperationsWhileLooping": {
+      "enabled": true,
+      "comment": "Detect inefficient operations inside loops."
+    },
+    "LargeBitmapLoading": {
+      "enabled": true,
+      "comment": "Detect loading of large bitmaps that might cause memory issues."
     }
   }
 }

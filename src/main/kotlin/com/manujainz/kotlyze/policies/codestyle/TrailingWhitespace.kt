@@ -16,7 +16,7 @@ import org.jetbrains.kotlin.psi.KtFile
  * Example:
  *  val x = 10;<whitespace>  // Trailing whitespace detected.
  */
-class TrailingWhitespacePolicy(
+class TrailingWhitespace(
     configLoader: ConfigLoader,
     private val reportEngine: ReportEngine
 ) : Policy(configLoader) {

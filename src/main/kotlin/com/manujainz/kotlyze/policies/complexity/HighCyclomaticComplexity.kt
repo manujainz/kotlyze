@@ -21,8 +21,8 @@ import org.jetbrains.kotlin.psi.KtFile
  *  // Cyclomatic complexity = 4 (1 by default + 3 for each decision point)
  */
 
-private const val KEY_ALLOWED_MAX_COMPLEXITY_POINTS = "maxAllowedNestedDepth"
-private const val DEFAULT_ALLOWED_MAX_COMPLEXITY_POINTS = 4
+private const val KEY_ALLOWED_MAX_COMPLEXITY_POINTS = "maxAllowedComplexityPath"
+private const val DEFAULT_ALLOWED_MAX_COMPLEXITY_POINTS = 5
 
 class HighCyclomaticComplexity(
     configLoader: ConfigLoader,

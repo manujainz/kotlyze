@@ -14,7 +14,7 @@ class PolicyRepository(configLoader: ConfigLoader, reportEngine: ReportEngine) {
             MaxCharacterPerLine(configLoader, reportEngine),
             MethodExplosionInClass(configLoader, reportEngine),
             MultipleClassesPerFile(configLoader, reportEngine),
-            TrailingWhitespacePolicy(configLoader, reportEngine),
+            TrailingWhitespace(configLoader, reportEngine),
             UnusedImportsPolicy(configLoader, reportEngine),
             ComplexConditionChain(configLoader, reportEngine),
             ExcessiveReturnStatements(configLoader, reportEngine),
