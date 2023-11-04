@@ -5,6 +5,7 @@ import com.manujainz.kotlyze.parser.KotlyzeParser
 import com.manujainz.kotlyze.plugin.KotlyzeExtension
 import com.manujainz.kotlyze.policies.base.factory.PolicyFactory
 import com.manujainz.kotlyze.reporting.core.ReportEngineImpl
+import com.manujainz.kotlyze.reporting.publishers.HtmlReportPublisher
 import com.manujainz.kotlyze.reporting.publishers.SystemLogReportPublisher
 import com.manujainz.kotlyze.utils.FileUtils
 import org.gradle.api.Project
@@ -40,7 +41,7 @@ class KotlyzeStartup {
         configLoader.printConfig()
 
         val reportingEngine = ReportEngineImpl()
-        val publisher = SystemLogReportPublisher()
+        val publishers = listOf(SystemLogReportPublisher(), HtmlReportPublisher())
 
         // parse kotlin files
         val ktFiles = getParsedKtFiles(target, extension, kotlyzeParser)
@@ -56,7 +57,7 @@ class KotlyzeStartup {
         }
 
         // report and publish
-        reportingEngine.notifyReporters(listOf(publisher))
+        reportingEngine.notifyReporters(publishers)
     }
 
     private fun getKotlyzeConfig(configPath: String?): String {
